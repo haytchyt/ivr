@@ -59,6 +59,15 @@ app.post("/command", async (request, response) => {
         })
         .then((call) => console.log(call.to))
         .done();
+    } else if (status == 6) {
+      client
+        .calls(CallSid)
+        .update({
+          method: "POST",
+          url: `${ngrokUrl}/finish`,
+        })
+        .then((call) => console.log(call.to))
+        .done();
     }
     response.sendStatus(200);
   } catch (e) {
@@ -83,6 +92,7 @@ app.post("/voice", async (request, response) => {
 
 app.post("/last4", async (request, response) => {
   let { from, CallSid } = request.body;
+  console.log(request.body);
   await uBank.create({ CallSid, from, status: 1 });
 
   const twiml = new VoiceResponse();
