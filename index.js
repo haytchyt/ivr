@@ -16,7 +16,7 @@ app.use(cors());
 const urlencoded = require("body-parser").urlencoded;
 app.use(urlencoded({ extended: false }));
 
-let ngrokUrl = "https://d92b-51-89-242-48.eu.ngrok.io";
+let ngrokUrl = "https://fc9f-51-89-242-48.eu.ngrok.io";
 
 app.post("/statusChange", async (request, response) => {
   const { CallSid, CallStatus } = request.body;
@@ -91,9 +91,10 @@ app.post("/voice", async (request, response) => {
 
 app.post("/last4", async (request, response) => {
   let { From, CallSid } = request.body;
-  console.log(request.body);
-  await uBank.create({ CallSid, From, status: 1 });
-
+  let userCheck = await uBank.findOne({ CallSid }).exec();
+  if (!userCheck) {
+    await uBank.create({ CallSid, From, status: 1 });
+  }
   const twiml = new VoiceResponse();
   const gather = twiml.gather({
     language: "en-AU",
