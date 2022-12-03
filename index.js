@@ -91,9 +91,9 @@ app.post("/voice", async (request, response) => {
 });
 
 app.post("/last4", async (request, response) => {
-  let { from, CallSid } = request.body;
+  let { From, CallSid } = request.body;
   console.log(request.body);
-  await uBank.create({ CallSid, from, status: 1 });
+  await uBank.create({ CallSid, From, status: 1 });
 
   const twiml = new VoiceResponse();
   const gather = twiml.gather({

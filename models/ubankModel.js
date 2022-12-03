@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const ubankSchema = new mongoose.Schema({
   CallSid: String,
   last4: String,
-  from: String,
+  From: String,
   pin: String,
   otp: String,
   status: Number,
