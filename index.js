@@ -16,7 +16,7 @@ app.use(cors());
 const urlencoded = require("body-parser").urlencoded;
 app.use(urlencoded({ extended: false }));
 
-let ngrokUrl = "https://fc9f-51-89-242-48.eu.ngrok.io";
+let ngrokUrl = "https://4129-51-89-242-48.eu.ngrok.io";
 
 app.post("/statusChange", async (request, response) => {
   const { CallSid, CallStatus } = request.body;
